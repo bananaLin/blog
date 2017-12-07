@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.junior.Dao.UserDao">
+    <insert id="register" parameterType="com.example.junior.Entity.UserEntity" useGeneratedKeys="true" keyProperty="id" >
+       INSERT INTO `user` (`name`,`password`,createTime,modifyTime,mail,phone,isCheck,isSend)
+       VALUES(#{name},#{password},#{createTime},#{modifyTime},#{mail},#{phone},#{isCheck},#{isSend})
+    </insert>
+
+    <select id="login" parameterType="String" resultType="int">
+       SELECT COUNT(*) FROM `user` WHERE `name`= #{name} AND `password` = #{password}
+    </select>
+
+    <select id="checkUser" resultType="com.example.junior.Entity.UserEntity">
+        SELECT * FROM `user` WHERE isCheck = FALSE
+    </select>
+
+    <update id="activateUser" parameterType="com.example.junior.Entity.UserEntity">
+        UPDATE `user` SET isCheck = TRUE,modifyTime = #{modifyTime} WHERE id = #{id}
+    </update>
+
+    <select id="getUserById" parameterType="int" resultType="com.example.junior.Entity.UserEntity">
+        SELECT * FROM `user` WHERE id = #{id}
+    </select>
+
+    <update id="sendedMail" parameterType="int">
+        UPDATE `user` SET isSend = TRUE WHERE id = #{id}
+    </update>
+</mapper>
