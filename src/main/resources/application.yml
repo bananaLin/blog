@@ -12,8 +12,8 @@ spring:
       uri: mongodb://localhost:27017/blog
   mail:
     host: smtp.qq.com
-    username: 2973925586@qq.com
-    password: lxjfnxpnczsfdhee
+    username: //你的邮箱
+    password: //这里是IMAP/SMTP服务的授权密码
     properties:
       mail:
         stmp:
