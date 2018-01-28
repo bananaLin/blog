@@ -3,6 +3,7 @@ package com.example.junior.Service.ServiceImpl;
 import com.example.junior.Dao.ArticleDao;
 import com.example.junior.Dao.UserDao;
 import com.example.junior.Entity.Article;
+import com.example.junior.Entity.Reply;
 import com.example.junior.Entity.UserEntity;
 import com.example.junior.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,12 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -49,7 +54,7 @@ public class UserServiceImpl implements UserService {
     public boolean addArticle(Article article)
     {
 
-        if(article.getTitle().trim().isEmpty() || article.getContent().trim().isEmpty())
+        if(article.getTitle() =="" || article.getContent()=="")
             return false;
         article.setTime(new Date());
         return articleDao.insert(article)!=null;
@@ -72,6 +77,18 @@ public class UserServiceImpl implements UserService {
         return articleDao.save(article).getId()!=null;
     }
 
+    @Override
+    public boolean replay(Reply reply) {
+        if(reply==null)
+            return false;
+        if(reply.getContent()== null|| reply.getName() == null)
+            return false;
+        reply.setCheck(false);
+        reply.setTime(new Date());
+        mongoTemplate.save(reply);
+        return true;
+    }
+
     public boolean deleteArticle(String id)
     {
         Query query = Query.query(Criteria.where("id").is(id));
@@ -87,6 +104,23 @@ public class UserServiceImpl implements UserService {
             return userDao.activateUser(userEntity) > 0;
         }
         return false;
+    }
+
+    public String upload(byte[] file)
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        String fileName = formatter.format(new Date());
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream("/static/upload/" + fileName + ".jpg");
+            out.write(file);
+            out.flush();
+            out.close();
+        }catch (Exception e){
+            System.out.println("上传文件出错了");
+        }
+
+        return "success";
     }
 
     //用户密码用MD5加密

@@ -12,8 +12,8 @@ spring:
       uri: mongodb://localhost:27017/blog
   mail:
     host: smtp.qq.com
-    username: //你的邮箱
-    password: //这里是IMAP/SMTP服务的授权密码
+    username: 
+    password: 
     properties:
       mail:
         stmp:
@@ -22,6 +22,12 @@ spring:
             enable: true
             required: true
     port: 587
+  http:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  mvc:
+    static-path-pattern: /resources/**
 mybatis:
   type-aliases-package: com.example.junior.Entity
   mapper-locations: classpath:/mapper/*.xml

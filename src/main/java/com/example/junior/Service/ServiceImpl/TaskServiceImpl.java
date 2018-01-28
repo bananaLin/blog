@@ -23,7 +23,7 @@ public class TaskServiceImpl implements TaskService {
     @Scheduled(fixedRate = 5000)
     public void timer()
     {
-        System.out.println("例行检查未激活用户");
+        //System.out.println("例行检查未激活用户");
         List<UserEntity> users = userDao.checkUser();
         for(UserEntity user : users)
         {

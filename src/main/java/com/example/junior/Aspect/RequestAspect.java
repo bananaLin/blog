@@ -32,6 +32,8 @@ public class RequestAspect {
     @Pointcut("execution(public * com.example.junior.Controller.UserController.*(..))")
     public void userDo(){}
 
+    //@Pointcut("execution(public * com.example.junior.Controller.UserController.(..))")
+
     //在调用HelloController的所有方法前做的事情
     @Before("pointDo()")
     public void sayBefore()
@@ -65,4 +67,6 @@ public class RequestAspect {
         logEntity.setBehaviour(req.getRequestURL().toString());
         logService.logUserBehaviour(logEntity);
     }
+
+    //@Before("")
 }

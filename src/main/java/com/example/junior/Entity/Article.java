@@ -1,7 +1,6 @@
 package com.example.junior.Entity;
 
 import org.springframework.data.annotation.Id;
-
 import java.util.Date;
 
 public class Article{
