@@ -36,28 +36,25 @@ public class RequestAspect {
 
     //在调用HelloController的所有方法前做的事情
     @Before("pointDo()")
-    public void sayBefore()
-    {
+    public void sayBefore(){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest req = attributes.getRequest();
         System.out.println("在请求前做的...");
-        //url
+        // url
         System.out.println("url:"+req.getRequestURL());
-        //method
+        // method
         System.out.println("请求的方法:"+req.getMethod());
-        //ip
+        // ip
         System.out.println("客户端ip:"+req.getRemoteAddr());
     }
 
     @After("pointDo()")
-    public void sayAfter()
-    {
+    public void sayAfter(){
         System.out.println("在请求后做的...");
     }
 
     @After("userDo()")
-    public void logUserBehaviour()
-    {
+    public void logUserBehaviour(){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest req = attributes.getRequest();
 
